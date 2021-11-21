@@ -1,12 +1,13 @@
 .data
-	x16: .space 2001
-	x2: .space 16001
+	x16: .space 200
+	x2: .space 1600
 	indexb2: .long 0
 	neg: .long 0
 	result: .long 0
 	cur: .space 1
 	dash: .asciz "-"
 	spc: .asciz " "
+	nline: .asciz "\n"
 	aci: .asciz "aici"
 	formatScanf: .asciz "%s"
 	formatPrintStr: .asciz "%s"
@@ -767,8 +768,11 @@ cnt2:
 
 quitit:
 
-	pushl $0
-	call fflush
+	pushl %ecx
+	pushl $nline
+	pushl $formatPrintStr
+	call printf
+	popl %ebx
 	popl %ebx
 
 	movl $1, %eax
